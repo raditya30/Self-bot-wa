@@ -597,7 +597,7 @@ async function sendFileFromUrl(from, url, caption, mek, men) {
               directPath:
                 "/v/t62.7118-24/21427642_840952686474581_572788076332761430_n.enc?oh=3f57c1ba2fcab95f2c0bb475d72720ba&oe=602F3D69",
               mediaKeyTimestamp: "1610993486",
-              jpegThumbnail: fs.readFileSync(thumb),
+              jpegThumbnail: thumb,
               scansSidecar:
                 "1W0XhfaAcDwc7xh1R8lca6Qg/1bB4naFCSngM2LKO2NoP5RI7K+zLw==",
             },
@@ -607,7 +607,7 @@ async function sendFileFromUrl(from, url, caption, mek, men) {
     };
     const fakethumb = (teks, yes) => {
       client.sendMessage(from, teks, image, {
-        thumbnail: fs.readFileSync("./stik/fake.jpeg"),
+        thumbnail: fs.readFileSync(thumb1),
         quoted: fgclink,
         caption: yes,
       });
@@ -634,7 +634,7 @@ async function sendFileFromUrl(from, url, caption, mek, men) {
               directPath:
                 "/v/t62.7118-24/21427642_840952686474581_572788076332761430_n.enc?oh=3f57c1ba2fcab95f2c0bb475d72720ba&oe=602F3D69",
               mediaKeyTimestamp: "1610993486",
-              jpegThumbnail: fs.readFileSync(thumb),
+              jpegThumbnail: thumb,
               scansSidecar:
                 "1W0XhfaAcDwc7xh1R8lca6Qg/1bB4naFCSngM2LKO2NoP5RI7K+zLw==",
             },
@@ -677,7 +677,7 @@ async function sendFileFromUrl(from, url, caption, mek, men) {
           product: {
             productImage: {
               mimetype: "image/jpeg",
-              jpegThumbnail: fs.readFileSync(`./stik/raysha.jpg`), //Gambarnye
+              jpegThumbnail: fs.readFileSync(thumb1), //Gambarnye
             },
             title: "Raysha-Botz", //Kasih namalu
             description: "SELF BOT",
