@@ -1,37 +1,43 @@
-const { MessageType } = require('@adiwajshing/baileys')
-const { WAConnection } = require('@adiwajshing/baileys')
-const qrcodes = require('qrcode');
+
+let { WAConnection, MessageType, Mimetype} = require('@adiwajshing/baileys')
+let qrcode = require('qrcode')
 const fs = require('fs')
-const conn = new WAConnection()
-conn.version = [2, 2119, 6]
-exports.jadibot = async function(alpha,from,sender,reply,mek) {  
-conn.on('qr' ,async qr => {
-  url = await qrcodes.toDataURL(qr)
-  auth = true
-        buff = await Buffer.from(url.split('data:image/png;base64,')[1], 'base64')
-        await fs.writeFileSync('./jadibot.jpg', buff)
-    let scen = await alpha.sendMessage(from, fs.readFileSync('./jadibot.jpg'), MessageType.image, {quoted : mek,caption: 'Scan QR ini untuk jadi bot sementara!\n1. Klik titik tiga di pojok kanan atas\n2. Ketuk WhatsApp Web\n3. Scan QR ini \n\nQR Expired dalam 20 detik'})
-    
-  setTimeout(() => {
-       alpha.deleteMessage(from, scen.key)
-  }, 30000);
-  })
-  
-conn.on ('open',() => {
-  console.log ('credentials update')
-  const authInfo = conn.base64EncodedAuthInfo()
-  fs.writeFileSync(`./database/jadibot/${sender}.json`, JSON.stringify(authInfo  ,null, '\t'))
-})
-    conn.on('chat-update', async (chat) => {
-        require('./index.js')(conn, chat)
+
+listjadibot = [];
+
+const jadibot = async(reply,client,id) => {
+	conn = new WAConnection()
+    conn.logger.level = 'warn'
+    conn.version = [2, 2123, 8]
+    conn.browserDescription = [ 'jadibot', '', '3.0' ]
+    conn.on('qr', async qr => {
+    	let bot = await qrcode.toDataURL(qr, { scale: 8 })
+    	let buffer = new Buffer.from(bot.replace('data:image/png;base64,', ''), 'base64')
+       	bot = await client.sendMessage(id,buffer,MessageType.image,{caption:'Scan QR Untuk menjadi bot\n*Rules:*\nQR akan diganti setiap 30 detik'})
+    	setTimeout(() => {
+       	client.deleteMessage(id, bot.key)
+       },30000)
     })
-    
-    await conn.connect().then(async ({user}) => {
-      reply('Berhasil tersambung dengan WhatsApp - mu.\n*NOTE: Ini cuma numpang*\n' + JSON.stringify(user, null, 2))
+    conn.on('connecting', () => {
     })
-    }
-exports.stopjadibot = async function(alpha, from, sender){
-  alpha.sendMessage(from,'Kamu tidak terdaftar di ListBot!',MessageType.text)
-  await fs.unlinkSync(`./database/jadibot/${sender}.json`)
-  conn.close()
+    conn.on('open', () => {
+    	reply(`Sukses Jadi BOT\n\n*Device*:\n\n ${JSON.stringify(conn.user,null,2)}`)
+    })
+    await conn.connect({timeoutMs: 30 * 1000})
+    listjadibot.push(conn.user)
+    conn.on('chat-update', async (message) => {
+        require('../index.js')(conn, message)
+    })
+}
+
+const stopjadibot = (reply) => {
+	conn = new WAConnection();
+	conn.close()
+	reply('Sukses stop jadibot')
+}
+
+module.exports = {
+	jadibot,
+	stopjadibot,
+	listjadibot
 }
