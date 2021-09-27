@@ -100,7 +100,7 @@ const { addVote, delVote } = require("./lib/vote");
 const reminder = require("./lib/reminder");
 const _prem = require("./lib/premium");
 const { jadibot, stopjadibot, listjadibot } = ("./lib/jadibot");
-const _reminder = JSON.parse(fs.readFileSync("./database/reminder.json"));
+const _reminder = JSON.parse(fs.readFileSync("./media/reminder.json"));
 const game = require("./lib/game");
 let petik = '```'
 let btang = '*'
@@ -172,13 +172,13 @@ UBAH SESUIA KEINGINAN
 			const slot99 = slot6[Math.floor(Math.random() * (slot9.length))]	  
 		
 //=================================================//
-let _scommand = JSON.parse(fs.readFileSync("./database/scommand.json"));
+let _scommand = JSON.parse(fs.readFileSync("./media/scommand.json"));
 
 // Sticker Cmd
 const addCmd = (id, command) => {
   const obj = { id: id, chats: command };
   _scommand.push(obj);
-  fs.writeFileSync("./database/scommand.json", JSON.stringify(_scommand));
+  fs.writeFileSync("./media/scommand.json", JSON.stringify(_scommand));
 };
 
 const getCommandPosition = (id) => {
@@ -307,14 +307,14 @@ module.exports = client = async (client, mek) => {
     const botNumberss = client.user.jid + "@c.us";
     const isGroup = from.endsWith("@g.us");
 
-//DATABASE
-    const premium = JSON.parse(fs.readFileSync("./database/premium.json"));
-    const pendaftar = JSON.parse(fs.readFileSync("./database/user.json"));
-    const antilink = JSON.parse(fs.readFileSync("./database/antilink.json"));
-    const antivirtex = JSON.parse(fs.readFileSync("./database/antivirtex.json"));
-    const kickarea = JSON.parse(fs.readFileSync("./database/antibule.json"));
-    const antivo = JSON.parse(fs.readFileSync("./database/antivo.json"));
-    const antihidetg = JSON.parse(fs.readFileSync("./database/antihidetag.json"));
+//media
+    const premium = JSON.parse(fs.readFileSync("./media/premium.json"));
+    const pendaftar = JSON.parse(fs.readFileSync("./media/user.json"));
+    const antilink = JSON.parse(fs.readFileSync("./media/antilink.json"));
+    const antivirtex = JSON.parse(fs.readFileSync("./media/antivirtex.json"));
+    const kickarea = JSON.parse(fs.readFileSync("./media/antibule.json"));
+    const antivo = JSON.parse(fs.readFileSync("./media/antivo.json"));
+    const antihidetg = JSON.parse(fs.readFileSync("./media/antihidetag.json"));
     
     const isAntihidetag = isGroup ? antihidetg.includes(from) : false;
     const isAntiviewonce = isGroup ? antivo.includes(from) : false;
@@ -927,7 +927,7 @@ async function sendFileFromUrl(from, url, caption, mek, men) {
     //AUTO REGISTER
        /* if (isCmd && !isUser){
 			pendaftar.push(sender)
-			fs.writeFileSync('./database/user.json', JSON.stringify(pendaftar))
+			fs.writeFileSync('./media/user.json', JSON.stringify(pendaftar))
         } */
         
         //GAME WAKTU
@@ -1169,7 +1169,7 @@ displayText: `📝 𝐕𝐄𝐑𝐈𝐅𝐘`,}, type: 1,},])
                 var userid = sender
                 var gambernye = await getBuffer(ppuser)
                pendaftar.push(sender)
-			   fs.writeFileSync('./database/user.json', JSON.stringify(pendaftar))
+			   fs.writeFileSync('./media/user.json', JSON.stringify(pendaftar))
 			   var teksnya = mess.registered
 			 client.sendMessage(from, gambernye, image, { quoted: fgclink, caption: teksnya, thumbnail: gambernye})
 				break
@@ -1426,7 +1426,7 @@ client.sendMessage(from, {
             "base64"
           );
         _scommand.splice(getCommandPosition(kodenya), 1);
-        fs.writeFileSync("./database/scommand.json", JSON.stringify(_scommand));
+        fs.writeFileSync("./media/scommand.json", JSON.stringify(_scommand));
         fakestatus("Done!");
         break;
       case "listcmd":
@@ -1649,14 +1649,14 @@ Alert!!! : ${res.desc}`))
           if (isAntilink) return reply("Sudah aktif!!");
           antilink.push(from);
           fs.writeFileSync(
-            "./database/antilink.json",
+            "./media/antilink.json",
             JSON.stringify(antilink)
           );
           reply("Sukses mengaktifkan antilink!");
         } else if (args[0] == "off") {
           antilink.splice(from, 1);
           fs.writeFileSync(
-            "./database/antilink.json",
+            "./media/antilink.json",
             JSON.stringify(antilink)
           );
           reply("Sukses mematikan antilink!");
@@ -1687,14 +1687,14 @@ Alert!!! : ${res.desc}`))
           if (isAntihidetag) return reply("Sudah aktif!!");
           antihidetg.push(from);
           fs.writeFileSync(
-            "./database/antihidetag.json",
+            "./media/antihidetag.json",
             JSON.stringify(antihidetg)
           );
           reply("Sukses mengaktifkan antihidetag!");
         } else if (args[0] == "off") {
           antihidetg.splice(from, 1);
           fs.writeFileSync(
-            "./database/antihidetag.json",
+            "./media/antihidetag.json",
             JSON.stringify(antihidetg)
           );
           reply("Sukses mematikan antihidetag!");
@@ -1729,11 +1729,11 @@ Alert!!! : ${res.desc}`))
         if (args[0] == "on") {
           if (isAntiviewonce) return reply("Sudah aktif!!");
           antivo.push(from);
-          fs.writeFileSync("./database/antivo.json", JSON.stringify(antivo));
+          fs.writeFileSync("./media/antivo.json", JSON.stringify(antivo));
           reply("Sukses mengaktifkan antiviewonce!");
         } else if (args[0] == "off") {
           antivo.splice(from, 1);
-          fs.writeFileSync("./database/antivo.json", JSON.stringify(antivo));
+          fs.writeFileSync("./media/antivo.json", JSON.stringify(antivo));
           reply("Sukses mematikan antiviewonce!");
         } else if (!q) {
           sendButMessage(
@@ -1798,13 +1798,13 @@ Alert!!! : ${res.desc}`))
           if (isAntivirtex) return reply("Sudah aktif!!");
           antivirtex.push(from);
           fs.writeFileSync(
-            "./database/antivirtex.json",
+            "./media/antivirtex.json",
             JSON.stringify(antivirtex)
           );
           reply("Sukses mengaktifkan antivirtex!");
         } else if (args[0] == "off") {
           antivirtex.splice(from, 1);
-          fs.writeFileSync("./database/antivirtex.json", JSON.stringify(ant));
+          fs.writeFileSync("./media/antivirtex.json", JSON.stringify(ant));
           reply("Sukses mematikan antivirtex!");
         } else if (!q) {
           sendButMessage(from, `MODE ANTIVIRTEX`, `Silahkan pilih salah satu`, [
@@ -1833,14 +1833,14 @@ Alert!!! : ${res.desc}`))
           if (isKickarea) return reply("Sudah aktif!!");
           kickarea.push(from);
           fs.writeFileSync(
-            "./database/antibule.json",
+            "./media/antibule.json",
             JSON.stringify(kickarea)
           );
           reply("Sukses mengaktifkan kickarea!");
         } else if (args[0] == "off") {
           kickarea.splice(from, 1);
           fs.writeFileSync(
-            "./database/antibule.json",
+            "./media/antibule.json",
             JSON.stringify(kickarea)
           );
           reply("Sukses mematikan kickarea!");
@@ -2175,7 +2175,7 @@ Reminder berhasil diaktifkan!
                 1
               );
               fs.writeFileSync(
-                "./database/reminder.json",
+                "./media/reminder.json",
                 JSON.stringify(_reminder)
               );
               clearInterval(intervRemind);
@@ -2219,7 +2219,7 @@ Reminder berhasil diaktifkan!
                 1
               );
               fs.writeFileSync(
-                "./database/reminder.json",
+                "./media/reminder.json",
                 JSON.stringify(_reminder)
               );
               clearInterval(intervRemind);
@@ -2263,7 +2263,7 @@ Reminder berhasil diaktifkan!
                 1
               );
               fs.writeFileSync(
-                "./database/reminder.json",
+                "./media/reminder.json",
                 JSON.stringify(_reminder)
               );
               clearInterval(intervRemind);
@@ -2312,7 +2312,7 @@ Reminder berhasil diaktifkan!
                 1
               );
               fs.writeFileSync(
-                "./database/reminder.json",
+                "./media/reminder.json",
                 JSON.stringify(_reminder)
               );
               clearInterval(intervRemind);
