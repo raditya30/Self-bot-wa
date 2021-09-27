@@ -125,9 +125,9 @@ fake = "𝗘𝗔𝗚𝗟𝗘 𝗕𝗢𝗧𝗭";
 fake1 = "Handsome";
 fake2 = "Created By Raditya";
 fakeUrl = "https://wa.me/6281361411375?text=Hai";
-thumb = fs.readFileSync("./stik/eagle.jpeg");
-thumbb = fs.readFileSync("./stik/eagle2.png");
-thumb1 = ("./stik/fake.jpeg"); 
+thumb = fs.readFileSync("./image/eagle.jpeg");
+thumbb = fs.readFileSync("./image/eagle2.png");
+thumb1 = ("./image/fake.jpeg"); 
 thumb2 = (`https://telegra.ph/file/9d839573c7b513e9f3f77.jpg`) //https://telegra.ph/file/ece6be086e0ddb8e92d2d.jpg
 numbernye = "0";
 waktu = "-";
