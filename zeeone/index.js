@@ -1,3 +1,0 @@
-/*
-Support channel ZEEONE OFC
-*/
